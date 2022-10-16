@@ -5,6 +5,7 @@
         <title>ANTI/MATTER</title>
         <style>
             body {
+                margin: 0px;
                 height: 100vh;
                 background-color: grey;
                 display: block;
@@ -12,8 +13,10 @@
             canvas {
                 image-rendering: crisp-edges;
                 image-rendering: pixelated;
-                margin-left: calc(50vw - var(--sw, 256px)); 
-                margin-top: calc(50vh - var(--sh, 192px));
+                margin-left: var(--margw, 256px); 
+                margin-top: var(--margh, 192px);
+                margin-right: 0px;
+                margin-bottom: 0px;
             }
             button {
                 margin-left: calc(50vw - 4em); 

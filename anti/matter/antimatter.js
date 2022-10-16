@@ -146,13 +146,11 @@ class WasmGame {
         const w = window.visualViewport.width;
         const h = window.visualViewport.height;
 
-        for (let n = 10; n > 1; n--) {
-            if (w >= origW * n && h >= origH * n) {
-                return n;
-            }
+        if (w > h) {
+            return Math.floor(h / origH * 10) / 10;
+        } else {
+            return Math.floor(w / origW * 10) / 10;
         }
-
-        return 1;
     }
 
     handleStart(e) {
@@ -300,17 +298,21 @@ class CanvasRenderer {
     }
 
     toggleScaleFactor() {
-        this.setScaleFactor((this.scaleFactor + 1) % 11);
+        this.setScaleFactor((Math.floor(this.scaleFactor) + 1) % 11);
     }
 
     setScaleFactor(n) {
         const sf = n || 1;
+        const w = window.visualViewport.width;
+        const h = window.visualViewport.height;
+        const margw = Math.floor((w - this.origWidth * sf) / 2);
+        const margh = Math.floor((h - this.origHeight * sf) / 2);
         const ctx = this.contexts[0];
         ctx.canvas.style = `
             transform-origin: 0 0; 
             transform: scale(${sf}); 
-            --sw: ${this.origWidth * sf / 2}px; 
-            --sh: ${this.origHeight * sf / 2}px; 
+            --margw: ${margw}px; 
+            --margh: ${margh}px; 
         `;
         this.scaleFactor = sf;
     }
